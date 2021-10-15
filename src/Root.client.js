@@ -12,9 +12,10 @@ export default function Root() {
 }
 
 function Content() {
+    let page = window.location.pathname==='/'?'home':'product'
     const [location, setLocation] = useState({
         selectedId: null,
-        page: 'home',
+        page,
         pageNo: 1
     });
     const response = useServerResponse(location);
