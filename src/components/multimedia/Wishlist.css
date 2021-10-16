@@ -1,0 +1,10 @@
+.circular-div{
+display: flex;
+position: relative;
+}
+
+.wish{
+right: 16px; 
+top: 10px; 
+transform: translateX(0px);
+}

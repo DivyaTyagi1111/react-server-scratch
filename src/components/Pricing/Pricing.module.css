@@ -1,0 +1,25 @@
+.pricing-div{
+    display:flex;
+    /* justify-content: center; */
+}
+
+.pricing-div > div{
+    display: flex;
+    align-items: center;
+    padding:0 2px;
+}
+
+.discount{
+    color: rgb(56, 142, 60);
+    font-family: "Roboto Medium", Roboto-Medium, "Droid Sans", HelveticaNeue-Medium, "Helvetica Neue Medium", sans-serif-medium;
+}
+.strike-price{
+    text-decoration-line: line-through;
+    color: rgb(144, 144, 144);
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif; 
+}
+
+.price{
+    font-family:"Roboto Medium", Roboto-Medium, "Droid Sans", HelveticaNeue-Medium, "Helvetica Neue Medium", sans-serif-medium;
+    color:rgb(53, 53, 53);
+}
