@@ -17,7 +17,7 @@ function Content() {
     const [location, setLocation] = useState({
         selectedId: null,
         page,
-        pageNo: 1
+        pageNo: 2
     });
     const response = useServerResponse(location);
     return (

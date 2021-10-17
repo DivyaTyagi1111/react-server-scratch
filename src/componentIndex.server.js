@@ -6,8 +6,8 @@ import Pmu from './components/Pmu/Pmu';
 import Recent from './components/Recent/Recent';
 import Multimedia from './components/multimedia/Multimedia.client';
 import ProductPageSummary from './components/product_page_summary/ProductPageSummary.server';
-import ProductDetails from './components/product_details/ProductDetails';
-import Rating from './components/rating/Rating';
+import ProductDetails from './components/product_details/ProductDetails.server';
+import Rating from './components/rating/Rating.server';
 let Components = {}
 
 Components['SEARCH'] = Search

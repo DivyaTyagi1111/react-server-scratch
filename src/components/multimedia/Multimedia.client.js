@@ -27,7 +27,6 @@ export default function Multimedia({ widgetData }) {
     //   width={width}
     //   />
     // </div>
-    <h1 style={{color}}onClick={()=>{setColor('blue')}}>Multimedia</h1>
-
+    <h1>Multimedia</h1>
   )
 }

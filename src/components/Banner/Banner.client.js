@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 // import BannerCSS from './Banner.module.css';
 // import {parseImageUrl} from '../../Utils'
 const Banner = (props) => {
-    const [temp, setTemp] = useState(0)
 
     // console.log(props.widgetData);
 
@@ -17,8 +16,6 @@ const Banner = (props) => {
         // </div>
         <>
         <h1>Banner</h1>
-        <h2>{temp}</h2>
-        <button onClick={()=>setTemp(p=>p+1)}>Click</button>
         </>
     );
 }
