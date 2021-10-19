@@ -1,14 +1,16 @@
 "use strict";
 
-const fs = require("fs");
-const glob = require("glob");
+// const glob = require("glob");
 const path = require("path");
 const rimraf = require("rimraf");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactServerWebpackPlugin = require("react-server-dom-webpack/plugin");
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 rimraf.sync(path.resolve(__dirname, "../build"));
+const isProduction = process.env.NODE_ENV === 'production';
 
 // To copy css files to public folder
 // getCSSFiles(".", function (err, res) {
@@ -27,8 +29,7 @@ rimraf.sync(path.resolve(__dirname, "../build"));
 
 webpack(
   {
-    mode: "development",
-    devtool: "cheap-module-source-map",
+    mode: isProduction ? 'production' : 'development',
     entry: [path.resolve(__dirname, "../src/index.client.js")],
     output: {
       path: path.resolve(__dirname, "../build"),
@@ -73,6 +74,8 @@ webpack(
         template: path.resolve(__dirname, "../public/index.html"),
       }),
       new ReactServerWebpackPlugin({ isServer: false }),
+      new BundleAnalyzerPlugin()
+
     ],
   },
   (d) => {}

@@ -3,6 +3,7 @@
 const register = require('react-server-dom-webpack/node-register');
 register();
 const babelRegister = require('@babel/register');
+const compression = require('compression');
 // require.extensions['.css'] = () => {
 //   return;
 // };
@@ -10,13 +11,17 @@ const babelRegister = require('@babel/register');
 babelRegister({
   ignore: [/\/(build|server|node_modules)\//],
   presets: [['react-app', { runtime: 'automatic' }]],
+//   "presets": [
+//     "@babel/preset-env",
+//     "@babel/preset-react"
+// ],
   plugins: [
     '@babel/transform-modules-commonjs', 
     // 'css-modules-transform'
-    ['css-modules-transform',{
-      "extensions":['.css'],
-      "keepImport":true
-    }],
+    // ['css-modules-transform',{
+    //   "extensions":['.css'],
+    //   "keepImport":true
+    // }],
   ],
 });
 
@@ -30,10 +35,12 @@ const ReactApp = require('../src/App.server').default;
 const PORT = 4000;
 const app = express();
 
+app.use(compression())
 app.use(express.json());
 
 app.use(express.static('build'));
 app.use(express.static('public'));
+
 
 app.listen(PORT, () => {
   console.log('React Notes listening at 4000...');

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 // import BannerCSS from './Banner.module.css';
 // import {parseImageUrl} from '../../Utils'
