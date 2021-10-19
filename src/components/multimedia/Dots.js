@@ -1,6 +1,6 @@
 import React from 'react'
 import Dot from './Dot'
-import './Dots.css'
+// import './Dots.css'
 
 export default function Dots({ slides, current }) {
     return (

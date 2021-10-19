@@ -1,0 +1,8 @@
+.banner-div{
+    width:100vw;
+}
+.banner-img{
+    max-width: 100%;
+    max-height: 100%;
+    padding:2% 2%;
+}

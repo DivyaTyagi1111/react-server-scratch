@@ -1,5 +1,5 @@
 import React from 'react'
-import './Dot.css'
+// import './Dot.css'
 
 export default function Dot({ active }) {
     // console.log('active : ', active)

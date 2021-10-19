@@ -1,0 +1,28 @@
+.title {
+  padding: 16px 16px 0px 16px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+.title__value {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.title__btn {
+  box-shadow: rgba(169, 169, 169, 0.6) 1px 1px 1px;
+  border-radius: 2px;
+  border: 5px solid;
+  border-color: rgb(240, 240, 240);
+  border-width: 0.5px;
+  display: flex;
+  justify-content: center;
+}
+
+.title__btn-text {
+  margin: 10px 12px;
+  color: rgb(40, 116, 240);
+  font-size: 14px;
+}

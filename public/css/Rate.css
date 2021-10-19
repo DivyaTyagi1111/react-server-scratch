@@ -1,0 +1,18 @@
+.rate-ratings div{
+    display: inline;
+}
+
+.rate-ratings__rate{
+    background-color:rgba(0,140,0,1);
+    border-radius: 20px;
+}
+
+.rate-ratings__rate-value{
+    color: white;
+}
+
+.rate-ratings__ratings{
+    color: #878787;
+    font-size: 14px;
+}
+
