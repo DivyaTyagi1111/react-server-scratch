@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import {fetch} from 'react-fetch'
-import Header from './components/header/Header.server'
+import Header from './components/header/Header.client'
 import Loader from './Loader.server'
 import WidgetLoader from './WidgetLoader.server'
 

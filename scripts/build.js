@@ -30,10 +30,11 @@ const isProduction = process.env.NODE_ENV === 'production';
 webpack(
   {
     mode: isProduction ? 'production' : 'development',
+    target:'web',
     entry: [path.resolve(__dirname, "../src/index.client.js")],
     output: {
       path: path.resolve(__dirname, "../build"),//export to build/client
-      filename: "main.js",
+      filename: "main-client.js",
     },
     module: {
       rules: [
@@ -43,6 +44,10 @@ webpack(
           use: {
             loader: "babel-loader",
           },
+        },
+        {
+          test: /\.css$/i,
+          use: [/*"style-loader",*/ "css-loader"],
         },
         // {
         //   loader: 'css-loader',
