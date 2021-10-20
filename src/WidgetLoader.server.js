@@ -1,5 +1,6 @@
 import React from "react";
 import Components from "./componentIndex.server";
+import Pagination from './Pagination.client'
 // import Loader from "./shell/Loader";
 
     
@@ -82,8 +83,9 @@ const WidgetLoader = (props) => {
             </div>
           );
         })}
-        {/* <div ref={pageBreakRef} style={{backgroundColor:'rgb(240,243,246)',height:'5px'}} className='page-break'/>
-        {isLoading && pageNo>1 && <Loader isBottom={true}/>} */}
+        {/* <div style={{backgroundColor:'rgb(240,243,246)',height:'5px'}} className='page-break'/> */}
+        {/* {isLoading && pageNo>1 && <Loader isBottom={true}/>} */}
+        <Pagination/>
     </>
   );
 };
