@@ -1,14 +1,35 @@
 'use strict';
 
+const webpack = require('webpack');
 const register = require('react-server-dom-webpack/node-register');
 register();
 const babelRegister = require('@babel/register');
+const compression = require('compression');
+const isProduction = process.env.NODE_ENV === 'production';
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ReactServerWebpackPlugin = require("react-server-dom-webpack/plugin");
+// require.extensions['.css'] = () => {
+//   return;
+// };
 
 babelRegister({
   ignore: [/\/(build|server|node_modules)\//],
   presets: [['react-app', { runtime: 'automatic' }]],
-  plugins: ['@babel/transform-modules-commonjs'],
+//   "presets": [
+//     "@babel/preset-env",
+//     "@babel/preset-react"
+// ],
+  plugins: [
+    '@babel/transform-modules-commonjs', 
+    // 'css-modules-transform'
+    // ['css-modules-transform',{
+    //   "extensions":['.css'],
+    //   "keepImport":true
+    // }],
+  ],
 });
+
+
 
 const express = require('express');
 const { readFileSync } = require('fs');
@@ -20,10 +41,52 @@ const ReactApp = require('../src/App.server').default;
 const PORT = 4000;
 const app = express();
 
+
+webpack(
+  {
+    mode: isProduction ? 'production' : 'development',
+    entry: [path.resolve(__dirname, "../src/index.client.js")], //change entry 
+    output: {
+      path: path.resolve(__dirname, "../build"),//export to build/server
+      filename: "main.js", //run nodemon on main.js
+    },
+  module: {
+    rules: [
+      { //include rules for js 
+        test: /\.(css)$/,
+        include: [
+          path.resolve(__dirname, '../src'),
+        ],
+        use: [
+          {
+            // Interprets `@import` and `url()` like `import/require()` and will resolve them
+            loader: 'css-loader/locals',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]'
+            }
+          },
+        ],
+      },
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: path.resolve(__dirname, "../public/index.html"),
+    }),
+    new ReactServerWebpackPlugin({ isServer: false }),
+
+  ],
+}
+);
+
+app.use(compression())
 app.use(express.json());
 
 app.use(express.static('build'));
 app.use(express.static('public'));
+
 
 app.listen(PORT, () => {
   console.log('React Notes listening at 4000...');

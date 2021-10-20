@@ -1,8 +1,9 @@
 import React from "react";
 // import RecentCSS from './Recent.module.css';
 // import RecentProduct from "./RecentProduct/RecentProduct";
-
+const styles = require('./Recent.css'); 
 const Recent = (props) => {
+    console.log(styles.text);
     // console.log(props.widgetData)
     // if(!props.widgetData)return(null);
     // const recentProducts = props.widgetData.widget.data.renderableComponents;
@@ -20,7 +21,7 @@ const Recent = (props) => {
         //         <RecentProduct rc={recentProducts[2]}/>
         //     </div>
         // </div>
-        <h1>Recent</h1>
+        <h1 className={styles.text}>Recent</h1>
     );
 }
 
