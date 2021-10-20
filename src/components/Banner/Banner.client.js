@@ -2,8 +2,9 @@ import React from 'react';
 
 // import BannerCSS from './Banner.module.css';
 // import {parseImageUrl} from '../../Utils'
+// const styles = require('./Banner.css')
 const Banner = (props) => {
-
+    // console.log(styles);
     // console.log(props.widgetData);
 
     // if(!props.widgetData)return(null);
@@ -15,7 +16,7 @@ const Banner = (props) => {
         // </div>
         // </div>
         <>
-        <h1>Banner</h1>
+        <h1 >Banner</h1>
         </>
     );
 }

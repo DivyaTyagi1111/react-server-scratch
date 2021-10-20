@@ -1,9 +1,13 @@
 'use strict';
 
+const webpack = require('webpack');
 const register = require('react-server-dom-webpack/node-register');
 register();
 const babelRegister = require('@babel/register');
 const compression = require('compression');
+const isProduction = process.env.NODE_ENV === 'production';
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ReactServerWebpackPlugin = require("react-server-dom-webpack/plugin");
 // require.extensions['.css'] = () => {
 //   return;
 // };
@@ -25,6 +29,8 @@ babelRegister({
   ],
 });
 
+
+
 const express = require('express');
 const { readFileSync } = require('fs');
 const { pipeToNodeWritable } = require('react-server-dom-webpack/writer');
@@ -34,6 +40,46 @@ const ReactApp = require('../src/App.server').default;
 
 const PORT = 4000;
 const app = express();
+
+
+webpack(
+  {
+    mode: isProduction ? 'production' : 'development',
+    entry: [path.resolve(__dirname, "../src/index.client.js")], //change entry 
+    output: {
+      path: path.resolve(__dirname, "../build"),//export to build/server
+      filename: "main.js", //run nodemon on main.js
+    },
+  module: {
+    rules: [
+      { //include rules for js 
+        test: /\.(css)$/,
+        include: [
+          path.resolve(__dirname, '../src'),
+        ],
+        use: [
+          {
+            // Interprets `@import` and `url()` like `import/require()` and will resolve them
+            loader: 'css-loader/locals',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]'
+            }
+          },
+        ],
+      },
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: path.resolve(__dirname, "../public/index.html"),
+    }),
+    new ReactServerWebpackPlugin({ isServer: false }),
+
+  ],
+}
+);
 
 app.use(compression())
 app.use(express.json());

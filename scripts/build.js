@@ -32,7 +32,7 @@ webpack(
     mode: isProduction ? 'production' : 'development',
     entry: [path.resolve(__dirname, "../src/index.client.js")],
     output: {
-      path: path.resolve(__dirname, "../build"),
+      path: path.resolve(__dirname, "../build"),//export to build/client
       filename: "main.js",
     },
     module: {
@@ -44,6 +44,13 @@ webpack(
             loader: "babel-loader",
           },
         },
+        // {
+        //   loader: 'css-loader',
+        //   options: {
+        //     modules: true,
+        //     localIdentName: '[name]__[local]--[hash:base64:5]'
+        //   }
+        // },
         // {
         //     test: /\.css$/,
         //     use: [
@@ -74,11 +81,28 @@ webpack(
         template: path.resolve(__dirname, "../public/index.html"),
       }),
       new ReactServerWebpackPlugin({ isServer: false }),
-      new BundleAnalyzerPlugin()
+      // new BundleAnalyzerPlugin()
 
     ],
   },
-  (d) => {}
+  (err, stats) => {
+    if (err) {
+      console.error(err.stack || err);
+      if (err.details) {
+        console.error(err.details);
+      }
+      process.exit(1);
+      return;
+    }
+    const info = stats.toJson();
+    if (stats.hasErrors()) {
+      console.log('Finished running webpack with errors.');
+      info.errors.forEach((e) => console.error(e));
+      process.exit(1);
+    } else {
+      console.log('Finished running webpack-client');
+    }
+  }
 );
 
 // function getCSSFiles(src, callback) {
