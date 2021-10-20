@@ -7,6 +7,7 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactServerWebpackPlugin = require("react-server-dom-webpack/plugin");
 const { node } = require("webpack");
+const nodeExternals = require('webpack-node-externals');
 
 // rimraf.sync(path.resolve(__dirname, "../build/server"));
 const isProduction = process.env.NODE_ENV === 'production';
@@ -15,9 +16,10 @@ webpack(
   {
     mode: isProduction ? 'production' : 'development',
     target:'node',
+    externals: [nodeExternals()],
     entry: [path.resolve(__dirname, "../server/api.server.js")],
     output: {
-      path: path.resolve(__dirname, "../build"),//export to build/client
+      path: path.resolve(__dirname, "../build/server"),//export to build/client
       filename: "main-server.js",
     },
     module: {
@@ -45,7 +47,12 @@ webpack(
       // new BundleAnalyzerPlugin()
 
     ],
+  resolve: {
+      alias: {
+          "react-writer": path.resolve(__dirname,"../node_modules/react-server-dom-webpack/writer.node.server")
+      }
   },
+},
   (err, stats) => {
     if (err) {
       console.error(err.stack || err);

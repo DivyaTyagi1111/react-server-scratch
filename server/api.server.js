@@ -1,37 +1,18 @@
 'use strict';
 
-const register = require('react-server-dom-webpack/node-register');
+import register from 'react-server-dom-webpack/node-register';
 register();
-const babelRegister = require('@babel/register');
-const compression = require('compression');
+import compression from 'compression';
 // require.extensions['.css'] = () => {
 //   return;
 // };
 
-babelRegister({
-  ignore: [/\/(build|server|node_modules)\//],
-  presets: [['react-app', { runtime: 'automatic' }]],
-//   "presets": [
-//     "@babel/preset-env",
-//     "@babel/preset-react"
-// ],
-  plugins: [
-    '@babel/transform-modules-commonjs', 
-    // 'css-modules-transform'
-    // ['css-modules-transform',{
-    //   "extensions":['.css'],
-    //   "keepImport":true
-    // }],
-  ],
-});
-
-
-const express = require('express');
-const { readFileSync } = require('fs');
-const { pipeToNodeWritable } = require('react-server-dom-webpack/writer');
-const path = require('path');
-const React = require('react');
-const ReactApp = require('../src/App.server').default;
+import express from 'express';
+import { readFileSync } from 'fs';
+import { pipeToNodeWritable } from 'react-writer';
+import path from 'path';
+import React from 'react';
+import ReactApp from '../src/App.server';
 
 const PORT = 4000;
 const app = express();

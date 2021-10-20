@@ -33,7 +33,7 @@ webpack(
     target:'web',
     entry: [path.resolve(__dirname, "../src/index.client.js")],
     output: {
-      path: path.resolve(__dirname, "../build"),//export to build/client
+      path: path.resolve(__dirname, "../build/client"),//export to build/client
       filename: "main-client.js",
     },
     module: {
