@@ -15,7 +15,6 @@ export default function Root() {
 function Content() {
     let page = window.location.pathname==='/'?'home':'product'
     const [location, setLocation] = useState({
-        selectedId: null,
         page,
         pageNo: 1
     });

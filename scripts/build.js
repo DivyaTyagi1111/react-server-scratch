@@ -74,7 +74,7 @@ webpack(
         template: path.resolve(__dirname, "../public/index.html"),
       }),
       new ReactServerWebpackPlugin({ isServer: false }),
-      new BundleAnalyzerPlugin()
+      // new BundleAnalyzerPlugin()
 
     ],
   },

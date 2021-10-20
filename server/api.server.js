@@ -55,21 +55,17 @@ async function renderReactTree(res, props) {
   pipeToNodeWritable(React.createElement(ReactApp,props), res, moduleMap);
 }
 
-function sendResponse(req, res, redirectToId) {
+function sendResponse(req, res) {
   const location = JSON.parse(req.query.location);
-  if (redirectToId) {
-    location.selectedId = redirectToId;
-  }
   res.set('X-Location', JSON.stringify(location));
   renderReactTree(res, {
-    selectedId: location.selectedId,
     page: location.page,
     pageNo: location.pageNo
   });
 }
 
 app.get('/react', function (req, res) {
-  sendResponse(req, res, null);
+  sendResponse(req, res);
 });
 
 app.get("/", function(req, res) {
