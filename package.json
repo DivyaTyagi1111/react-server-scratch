@@ -30,9 +30,9 @@
     "scripts": {
         "start": "concurrently \"npm run server\" \"npm run bundler\"",
         "start-dev": "npm run bundler",
-        "server": "NODE_ENV=production nodemon -- --conditions=react-server build/server/main-server.js",
-        "bundler": "NODE_ENV=development nodemon -- scripts/build.js",
-        "bundler-server": "NODE_ENV=development nodemon -- scripts/server-build.js"
+        "server": "NODE_ENV=production node -- --conditions=react-server build/server/main-server.js",
+        "bundler": "NODE_ENV=development node -- scripts/build.js",
+        "bundler-server": "NODE_ENV=development node -- scripts/server-build.js"
     },
     "babel": {
         "presets": [

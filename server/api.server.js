@@ -14,6 +14,8 @@ import path from 'path';
 import React from 'react';
 import ReactApp from '../src/App.server';
 
+const __dirname = path.resolve();
+
 const PORT = 4000;
 const app = express();
 
@@ -24,14 +26,13 @@ app.use(express.json());
 app.use(express.static('build'));
 app.use(express.static('public'));
 
-
 app.listen(PORT, () => {
   console.log('React Notes listening at 4000...');
 });
 
 async function renderReactTree(res, props) {
   const manifest = readFileSync(
-    path.resolve(__dirname, '../build/react-client-manifest.json'),
+    path.resolve(__dirname, 'build/react-client-manifest.json'),
     'utf8'
   );
   const moduleMap = JSON.parse(manifest);
@@ -56,16 +57,20 @@ app.get('/react', function (req, res) {
 });
 
 app.get("/", function(req, res) {
-  const html = readFileSync(
-    path.resolve(__dirname, '../build/index.html'),
-    'utf8'
-  );
-  res.send(html);
+  // const html = readFileSync(
+  //   path.resolve(__dirname, '/build/client/index.html'),
+  //   'utf8'
+  // );
+  // res.send(html);
+  res.sendFile(path.resolve(__dirname, 'build/', 'index.html'));
+  // res.send("Testing")
 })
 
 
 app.get("/api/home", (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../', 'home_page.json'));
+  res.sendFile(path.resolve(__dirname, 'home_page.json'));
+  // console.log(__dirname)
+  // res.sendFile('/Users/divya.tyagi/Desktop/learn/react-server-scratch/home_page.json');
 });
 
 app.get("/api/product", (req, res) => {
@@ -104,6 +109,6 @@ app.get('/api/:page/:pgno', (req,res) => {
 }); 
 
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../build/client', 'index.html'));
+// });

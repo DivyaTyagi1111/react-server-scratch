@@ -33,7 +33,7 @@ webpack(
     target:'web',
     entry: [path.resolve(__dirname, "../src/index.client.js")],
     output: {
-      path: path.resolve(__dirname, "../build/client"),//export to build/client
+      path: path.resolve(__dirname, "../build"),//export to build/client
       filename: "main-client.js",
     },
     module: {
@@ -45,10 +45,10 @@ webpack(
             loader: "babel-loader",
           },
         },
-        {
-          test: /\.css$/i,
-          use: [/*"style-loader",*/ "css-loader"],
-        },
+        // {
+        //   test: /\.css$/i,
+        //   use: [/*"style-loader",*/ "css-loader"],
+        // },
         // {
         //   loader: 'css-loader',
         //   options: {
@@ -70,14 +70,14 @@ webpack(
         //     ],
         //     include: /\.module\.css$/
         //   },
-        // {
-        //   test: /\.css$/,
-        //   use: [
-        //     'style-loader',
-        //     'css-loader'
-        //   ],
-        //   exclude: /\.module\.css$/,
-        // },
+        {
+          test: /\.css$/,
+          use: [
+            // 'style-loader',
+            'css-loader'
+          ],
+          exclude: /\.module\.css$/,
+        },
       ],
     },
     plugins: [
