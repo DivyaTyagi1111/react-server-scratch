@@ -1,22 +1,20 @@
 "use strict";
 
-// const glob = require("glob");
 const path = require("path");
-const rimraf = require("rimraf");
 const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ReactServerWebpackPlugin = require("react-server-dom-webpack/plugin");
-const { node } = require("webpack");
 const nodeExternals = require('webpack-node-externals');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-// rimraf.sync(path.resolve(__dirname, "../build/server"));
 const isProduction = process.env.NODE_ENV === 'production';
 
 webpack(
   {
     mode: isProduction ? 'production' : 'development',
+    devtool: isProduction ? 'hidden-source-map':'cheap-module-eval-source-map',
     target:'node',
-    externals: [nodeExternals()],
+    externals: [nodeExternals({
+      allowlist: [/^@babel\/runtime/],
+  })],
     entry: [path.resolve(__dirname, "../server/api.server.js")],
     output: {
       path: path.resolve(__dirname, "../build/server"),//export to build/client
@@ -33,9 +31,8 @@ webpack(
         },
         {
             test: /\.css$/i,
-            // use: [/*"style-loader"*/, "css-loader"],
             use: [
-              // 'style-loader',
+              MiniCssExtractPlugin.loader,
               {
                 loader: 'css-loader',
               }
@@ -45,12 +42,10 @@ webpack(
       ],
     },
     plugins: [
-    //   new HtmlWebpackPlugin({
-    //     // inject: true,
-    //     template: path.resolve(__dirname, "../build/index.html"),
-    //   }),
-      new ReactServerWebpackPlugin({ isServer: false }),
-      // new BundleAnalyzerPlugin()
+        new MiniCssExtractPlugin({
+          filename: 'css/css-styling.css',
+          chunkFilename: 'css/css-styling.css'
+        }),
 
     ],
   resolve: {

@@ -1,5 +1,5 @@
 import React from 'react'
-// import './Loader.css'
+import './Loader.css'
 
 export default function Loader({isBottom}) {
     var bg=isBottom?'#F0F3F6':'white'

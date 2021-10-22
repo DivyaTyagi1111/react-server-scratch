@@ -10,10 +10,3 @@ export const parseImageUrl = (aspectRatio,url,width) => {
                     .replace('{@quality}','90');
     return [newUrl, h];
 }
-
-export const linkCss = (name) => {
-    const css = document.createElement('link')
-    css.setAttribute('rel', 'stylesheet')
-    css.setAttribute('href', `/css/${name}`)
-    document.querySelector('body').appendChild(css)
-}

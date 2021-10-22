@@ -1,5 +1,5 @@
 import React from "react";
-// import "./ProductDetails.css";
+import "./ProductDetails.css";
 import Title from '../Title/Title.server'
 
 export default function ProductDetails({ widgetData }) {

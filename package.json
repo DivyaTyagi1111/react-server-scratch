@@ -16,6 +16,7 @@
         "css-loader": "^5.2.7",
         "express": "^4.17.1",
         "html-webpack-plugin": "4.5.0",
+        "mini-css-extract-plugin": "^1.6.2",
         "nodemon": "^2.0.6",
         "react": "0.0.0-experimental-3310209d0",
         "react-dom": "0.0.0-experimental-3310209d0",
@@ -23,16 +24,15 @@
         "react-server-dom-webpack": "0.0.0-experimental-3310209d0",
         "resolve": "1.12.0",
         "rimraf": "^3.0.2",
-        "style-loader": "^3.3.0",
         "webpack": "4.44.2",
         "webpack-cli": "^4.2.0"
     },
     "scripts": {
-        "start": "concurrently \"npm run server\" \"npm run bundler\"",
-        "start-dev": "npm run bundler",
-        "server": "NODE_ENV=production node -- --conditions=react-server build/server/main-server.js",
-        "bundler": "NODE_ENV=development node -- scripts/build.js",
-        "bundler-server": "NODE_ENV=development node -- scripts/server-build.js"
+        "server": "node build/server/main-server.js",
+        "bundler-client": "NODE_ENV=development node -- scripts/client-build.js",
+        "bundler-server": "NODE_ENV=development node -- scripts/server-build.js",
+        "start": "npm run bundler-client && npm run bundler-server && npm run server"
+
     },
     "babel": {
         "presets": [
@@ -50,7 +50,6 @@
         ]
     },
     "devDependencies": {
-        "@babel/plugin-proposal-class-properties": "^7.14.5",
         "webpack-bundle-analyzer": "^4.5.0",
         "webpack-node-externals": "^3.0.0"
     }

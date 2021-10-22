@@ -3,9 +3,6 @@
 import register from 'react-server-dom-webpack/node-register';
 register();
 import compression from 'compression';
-// require.extensions['.css'] = () => {
-//   return;
-// };
 
 import express from 'express';
 import { readFileSync } from 'fs';
@@ -57,24 +54,15 @@ app.get('/react', function (req, res) {
 });
 
 app.get("/", function(req, res) {
-  // const html = readFileSync(
-  //   path.resolve(__dirname, '/build/client/index.html'),
-  //   'utf8'
-  // );
-  // res.send(html);
   res.sendFile(path.resolve(__dirname, 'build/', 'index.html'));
-  // res.send("Testing")
 })
-
 
 app.get("/api/home", (req, res) => {
   res.sendFile(path.resolve(__dirname, 'home_page.json'));
-  // console.log(__dirname)
-  // res.sendFile('/Users/divya.tyagi/Desktop/learn/react-server-scratch/home_page.json');
 });
 
 app.get("/api/product", (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../', 'product_page.json'));
+    res.sendFile(path.resolve(__dirname, 'product_page.json'));
 });
 
 
@@ -83,7 +71,7 @@ app.get('/api/:page/:pgno', (req,res) => {
   const page = req.params.page;
   const wcount = (page === 'home'? 4: 2);
   const data = readFileSync(
-    path.resolve(__dirname, `../${page}_page.json`),
+    path.resolve(__dirname, `${page}_page.json`),
     'utf8'
   );
   
@@ -108,7 +96,6 @@ app.get('/api/:page/:pgno', (req,res) => {
     res.send(pageResponse);
 }); 
 
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, '../build/client', 'index.html'));
-// });
+app.get("*", function(req, res) {
+  res.sendFile(path.resolve(__dirname, 'build/', 'index.html'));
+})
