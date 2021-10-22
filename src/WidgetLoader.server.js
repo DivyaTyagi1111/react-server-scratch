@@ -85,7 +85,7 @@ const WidgetLoader = (props) => {
         })}
         {/* <div style={{backgroundColor:'rgb(240,243,246)',height:'5px'}} className='page-break'/> */}
         {/* {isLoading && pageNo>1 && <Loader isBottom={true}/>} */}
-        <Pagination/>
+        <Pagination hasMorePages={props.hasMorePages}/>
     </>
   );
 };
