@@ -60,7 +60,8 @@ function sendResponse(req, res) {
   res.set('X-Location', JSON.stringify(location));
   renderReactTree(res, {
     page: location.page,
-    pageNo: location.pageNo
+    pageNo: location.pageNo,
+    // slot: location.slot,
   });
 }
 

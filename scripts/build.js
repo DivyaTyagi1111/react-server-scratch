@@ -30,6 +30,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 webpack(
   {
     mode: isProduction ? 'production' : 'development',
+    devtool: 'source-map',
     entry: [path.resolve(__dirname, "../src/index.client.js")],
     output: {
       path: path.resolve(__dirname, "../build"),

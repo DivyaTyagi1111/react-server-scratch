@@ -3,6 +3,8 @@ import {fetch} from 'react-fetch'
 import Header from './components/header/Header.server'
 import Loader from './Loader.server'
 import WidgetLoader from './WidgetLoader.server'
+// import Pagination from './Pagination.client'
+import Append from './Append.client'
 
 function App(props) {
     const data = fetch(`http://localhost:4000/api/${props.page}/${props.pageNo}`).json()
@@ -14,12 +16,16 @@ function App(props) {
     return(
       <>
         <Header />
+        {/* <h1>Testing Append</h1> */}
+        <Append slotNew={slots}/>
         <Suspense fallback={
           <div style={{marginTop:'40vh'}}>
             <Loader isBottom={false}/>
           </div>
         }>
-          <WidgetLoader page={props.page} pagePriceDetails={pagePriceDetails} slots={slots} hasMorePages={hasMorePages}/>
+          <WidgetLoader page={props.page} pagePriceDetails={pagePriceDetails} slots={slots} hasMorePages={hasMorePages}>
+            {/* <Pagination slotNew={slots} hasMorePages={hasMorePages}/> */}
+          </WidgetLoader>
         </Suspense>
       </>
     )

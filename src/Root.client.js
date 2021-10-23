@@ -16,7 +16,8 @@ function Content() {
     let page = window.location.pathname==='/'?'home':'product'
     const [location, setLocation] = useState({
         page,
-        pageNo: 1
+        pageNo: 1,
+        slot: [],
     });
     const response = useServerResponse(location);
     return (

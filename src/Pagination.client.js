@@ -6,6 +6,7 @@ export default function Pagination(props){
     const [isVisible, setIsVisible] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [, setLocation] = useLocation();
+    // setLocation(loc=>({...loc, slot:[...loc.slot, ...props.slotNew]}))
 
     const handleIntersect = entries => {
         const[entry] = entries;

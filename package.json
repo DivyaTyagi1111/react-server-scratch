@@ -28,7 +28,7 @@
     "scripts": {
         "start": "concurrently \"npm run server\" \"npm run bundler\"",
         "start-dev": "npm run bundler",
-        "server": "NODE_ENV=production nodemon -- --conditions=react-server server",
+        "server": "NODE_ENV=production nodemon --inspect -- --conditions=react-server server",
         "bundler": "NODE_ENV=production nodemon -- scripts/build.js"
     },
     "babel": {
