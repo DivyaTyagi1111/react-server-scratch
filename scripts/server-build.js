@@ -17,7 +17,7 @@ webpack(
   })],
     entry: [path.resolve(__dirname, "../server/api.server.js")],
     output: {
-      path: path.resolve(__dirname, "../build/server"),//export to build/client
+      path: path.resolve(__dirname, "../build/server"),
       filename: "main-server.js",
     },
     module: {

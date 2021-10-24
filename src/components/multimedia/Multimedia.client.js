@@ -1,5 +1,4 @@
 import React from 'react'
-// import { linkCss } from '../../Utils'
 import Slider from './Slider'
 import { parseImageUrl } from '../../Utils'
 
