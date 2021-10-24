@@ -1,13 +1,12 @@
 "use strict";
 
-// const glob = require("glob");
 const path = require("path");
 const rimraf = require("rimraf");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactServerWebpackPlugin = require("react-server-dom-webpack/plugin");
 
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 rimraf.sync(path.resolve(__dirname, "../build"));
 const isProduction = process.env.NODE_ENV === 'production';
@@ -19,7 +18,7 @@ webpack(
     target:'web',
     entry: [path.resolve(__dirname, "../src/index.client.js")],
     output: {
-      path: path.resolve(__dirname, "../build"),//export to build/client
+      path: path.resolve(__dirname, "../build"),
       filename: "main-client.js",
     },
     module: {
@@ -69,7 +68,3 @@ webpack(
     }
   }
 );
-
-// function getCSSFiles(src, callback) {
-//   glob(src + "/**/*.css", callback);
-// };

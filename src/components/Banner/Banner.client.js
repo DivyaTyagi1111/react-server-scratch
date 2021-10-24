@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // import BannerCSS from './Banner.module.css';
 // import {parseImageUrl} from '../../Utils'
 // const styles = require('./Banner.css')
 const Banner = (props) => {
-    useEffect(()=>{},[])
     // console.log(styles);
     // console.log(props.widgetData);
 
