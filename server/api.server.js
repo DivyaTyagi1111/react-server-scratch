@@ -10,6 +10,7 @@ import { pipeToNodeWritable } from 'react-writer';
 import path from 'path';
 import React from 'react';
 import ReactApp from '../src/App.server';
+import exphbs from 'express-handlebars';
 
 const __dirname = path.resolve();
 
@@ -21,7 +22,15 @@ app.use(compression())
 app.use(express.json());
 
 app.use(express.static('build'));
-app.use(express.static('public'));
+// app.use(express.static('public'));
+
+app.engine(
+	'.hbs',
+	exphbs({
+		extname: '.hbs'
+	})
+);
+app.set('view engine', '.hbs');
 
 app.listen(PORT, () => {
   console.log('React Notes listening at 4000...');
@@ -48,14 +57,19 @@ function sendResponse(req, res, redirectToId) {
     pageNo: location.pageNo
   });
 }
+app.get('/',function(req,res){
+  res.status(200).render('index.hbs',{
+      foo: 'hello'
+  });
+});
 
 app.get('/react', function (req, res) {
   sendResponse(req, res, null);
 });
 
-app.get("/", function(req, res) {
-  res.sendFile(path.resolve(__dirname, 'build/', 'index.html'));
-})
+// app.get("/", function(req, res) {
+//   res.sendFile(path.resolve(__dirname, 'build/', 'index.html'));
+// })
 
 app.get("/api/home", (req, res) => {
   res.sendFile(path.resolve(__dirname, 'home_page.json'));
@@ -96,6 +110,6 @@ app.get('/api/:page/:pgno', (req,res) => {
     res.send(pageResponse);
 }); 
 
-app.get("*", function(req, res) {
-  res.sendFile(path.resolve(__dirname, 'build/', 'index.html'));
-})
+// app.get("*", function(req, res) {
+//   res.sendFile(path.resolve(__dirname, 'build/', 'index.html'));
+// })

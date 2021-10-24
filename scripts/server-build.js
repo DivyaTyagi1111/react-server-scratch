@@ -43,8 +43,8 @@ webpack(
     },
     plugins: [
         new MiniCssExtractPlugin({
-          filename: 'css/css-styling.css',
-          chunkFilename: 'css/css-styling.css'
+          filename: 'css/[name].css',
+          chunkFilename: 'css/[id].css'
         }),
 
     ],

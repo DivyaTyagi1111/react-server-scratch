@@ -15,6 +15,7 @@
         "concurrently": "^5.3.0",
         "css-loader": "^5.2.7",
         "express": "^4.17.1",
+        "express-handlebars": "^5.3.4",
         "html-webpack-plugin": "4.5.0",
         "mini-css-extract-plugin": "^1.6.2",
         "nodemon": "^2.0.6",
@@ -32,7 +33,6 @@
         "bundler-client": "NODE_ENV=development node -- scripts/client-build.js",
         "bundler-server": "NODE_ENV=development node -- scripts/server-build.js",
         "start": "npm run bundler-client && npm run bundler-server && npm run server"
-
     },
     "babel": {
         "presets": [

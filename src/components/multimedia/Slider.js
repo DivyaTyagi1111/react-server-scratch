@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
-// import './Slider.css'
+import './Slider.css'
 import Dots from './Dots'
 
 export default function Slider(props) {
