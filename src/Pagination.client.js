@@ -4,7 +4,7 @@ import {useLocation} from './LocationContext.client';
 export default function Pagination(props){
     const pageBreakRef = useRef(null)
     const [isVisible, setIsVisible] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
+    // const [isLoading, setIsLoading] = useState(false)
     const [, setLocation] = useLocation();
     // setLocation(loc=>({...loc, slot:[...loc.slot, ...props.slotNew]}))
 

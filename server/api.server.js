@@ -11,17 +11,8 @@ const compression = require('compression');
 babelRegister({
   ignore: [/\/(build|server|node_modules)\//],
   presets: [['react-app', { runtime: 'automatic' }]],
-//   "presets": [
-//     "@babel/preset-env",
-//     "@babel/preset-react"
-// ],
   plugins: [
     '@babel/transform-modules-commonjs', 
-    // 'css-modules-transform'
-    // ['css-modules-transform',{
-    //   "extensions":['.css'],
-    //   "keepImport":true
-    // }],
   ],
 });
 
@@ -61,7 +52,7 @@ function sendResponse(req, res) {
   renderReactTree(res, {
     page: location.page,
     pageNo: location.pageNo,
-    // slot: location.slot,
+    slot: location.slot,
   });
 }
 

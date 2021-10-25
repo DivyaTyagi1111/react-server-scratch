@@ -16,14 +16,13 @@ function App(props) {
     return(
       <>
         <Header />
-        {/* <h1>Testing Append</h1> */}
         <Append slotNew={slots}/>
         <Suspense fallback={
           <div style={{marginTop:'40vh'}}>
             <Loader isBottom={false}/>
           </div>
         }>
-          <WidgetLoader page={props.page} pagePriceDetails={pagePriceDetails} slots={slots} hasMorePages={hasMorePages}>
+          <WidgetLoader page={props.page} pagePriceDetails={pagePriceDetails} slots={props.slot} hasMorePages={hasMorePages}>
             {/* <Pagination slotNew={slots} hasMorePages={hasMorePages}/> */}
           </WidgetLoader>
         </Suspense>
