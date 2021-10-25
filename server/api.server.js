@@ -6,7 +6,7 @@ import compression from 'compression';
 
 import express from 'express';
 import { readFileSync } from 'fs';
-import { pipeToNodeWritable } from 'react-writer';
+import { pipeToNodeWritable } from 'react-server-dom-webpack/writer';
 import path from 'path';
 import React from 'react';
 import ReactApp from '../src/App.server';

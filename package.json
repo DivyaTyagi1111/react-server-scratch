@@ -29,7 +29,7 @@
         "webpack-cli": "^4.2.0"
     },
     "scripts": {
-        "server": "node build/server/main-server.js",
+        "server": "node --conditions=react-server build/server/main-server.js",
         "bundler-client": "NODE_ENV=development node -- scripts/client-build.js",
         "bundler-server": "NODE_ENV=development node -- scripts/server-build.js",
         "start": "npm run bundler-client && npm run bundler-server && npm run server"

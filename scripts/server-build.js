@@ -48,11 +48,11 @@ webpack(
         }),
 
     ],
-  resolve: {
-      alias: {
-          "react-writer": path.resolve(__dirname,"../node_modules/react-server-dom-webpack/writer.node.server")
-      }
-  },
+  // resolve: {
+  //     alias: {
+  //         "react-writer": path.resolve(__dirname,"../node_modules/react-server-dom-webpack/writer.node.server")
+  //     }
+  // },
 },
   (err, stats) => {
     if (err) {
