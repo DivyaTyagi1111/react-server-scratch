@@ -1,11 +1,3 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
 'use strict';
 
 const register = require('react-server-dom-webpack/node-register');
@@ -20,16 +12,11 @@ babelRegister({
 
 const express = require('express');
 const compress = require('compression');
-const {readFileSync} = require('fs');
-const {unlink, writeFile} = require('fs').promises;
+import { readFileSync } from 'fs';
 const {pipeToNodeWritable} = require('react-server-dom-webpack/writer');
 const path = require('path');
-const {Pool} = require('pg');
 const React = require('react');
 const ReactApp = require('../src/App.server').default;
-
-// Don't keep credentials in the source tree in a real app!
-const pool = new Pool(require('../credentials'));
 
 const PORT = process.env.PORT || 4000;
 const app = express();
@@ -104,8 +91,8 @@ function sendResponse(req, res, redirectToId) {
   res.set('X-Location', JSON.stringify(location));
   renderReactTree(res, {
     selectedId: location.selectedId,
-    isEditing: location.isEditing,
-    searchText: location.searchText,
+    page: location.page,
+    pageNo: location.pageNo
   });
 }
 
@@ -113,79 +100,42 @@ app.get('/react', function(req, res) {
   sendResponse(req, res, null);
 });
 
-const NOTES_PATH = path.resolve(__dirname, '../notes');
-
-app.post(
-  '/notes',
-  handleErrors(async function(req, res) {
-    const now = new Date();
-    const result = await pool.query(
-      'insert into notes (title, body, created_at, updated_at) values ($1, $2, $3, $3) returning id',
-      [req.body.title, req.body.body, now]
-    );
-    const insertedId = result.rows[0].id;
-    await writeFile(
-      path.resolve(NOTES_PATH, `${insertedId}.md`),
-      req.body.body,
-      'utf8'
-    );
-    sendResponse(req, res, insertedId);
-  })
-);
-
-app.put(
-  '/notes/:id',
-  handleErrors(async function(req, res) {
-    const now = new Date();
-    const updatedId = Number(req.params.id);
-    await pool.query(
-      'update notes set title = $1, body = $2, updated_at = $3 where id = $4',
-      [req.body.title, req.body.body, now, updatedId]
-    );
-    await writeFile(
-      path.resolve(NOTES_PATH, `${updatedId}.md`),
-      req.body.body,
-      'utf8'
-    );
-    sendResponse(req, res, null);
-  })
-);
-
-app.delete(
-  '/notes/:id',
-  handleErrors(async function(req, res) {
-    await pool.query('delete from notes where id = $1', [req.params.id]);
-    await unlink(path.resolve(NOTES_PATH, `${req.params.id}.md`));
-    sendResponse(req, res, null);
-  })
-);
-
-app.get(
-  '/notes',
-  handleErrors(async function(_req, res) {
-    const {rows} = await pool.query('select * from notes order by id desc');
-    res.json(rows);
-  })
-);
-
-app.get(
-  '/notes/:id',
-  handleErrors(async function(req, res) {
-    const {rows} = await pool.query('select * from notes where id = $1', [
-      req.params.id,
-    ]);
-    res.json(rows[0]);
-  })
-);
-
-app.get('/sleep/:ms', function(req, res) {
-  setTimeout(() => {
-    res.json({ok: true});
-  }, req.params.ms);
-});
+app.get('/api/:page/:pgno', (req,res) => {
+  const pgno = req.params.pgno;
+  const page = req.params.page;
+  const wcount = (page === 'home'? 4: 2);
+  const data = readFileSync(
+    path.resolve(__dirname, `${page}_page.json`),
+    'utf8'
+  );
+  
+    let slots = [];
+    const temp = JSON.parse(data);
+    const slotsFromJson = temp['RESPONSE']['slots'];
+    let priceData = {};
+    if(temp['RESPONSE']['pageData'])priceData = temp['RESPONSE']['pageData']['pageContext'];
+    const start = (pgno-1)*wcount;
+    const end = Math.min(start+wcount,slotsFromJson.length)-1;
+    const hasMorePages = (end < slotsFromJson.length-1);
+    for (let i = start; i <= end; i++) {
+      slots.push(slotsFromJson[i]);
+    }
+    const pageResponse = {
+      "slots":slots,
+      "priceData":priceData,
+      "pageNumber":pgno,
+      "hasMorePages":hasMorePages
+    }
+    // console.log(pageData);
+    res.send(pageResponse);
+}); 
 
 app.use(express.static('build'));
 app.use(express.static('public'));
+
+app.get("*", function(req, res) {
+  res.sendFile(path.resolve(__dirname, 'build/', 'index.html'));
+})
 
 async function waitForWebpack() {
   while (true) {

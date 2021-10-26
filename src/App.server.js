@@ -1,50 +1,33 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
+import React, { Suspense, lazy } from 'react'
+import {fetch} from 'react-fetch'
+import Header from './components/header/Header.server'
+import Loader from './Loader.server'
+import Testing from './Testing.client'
+// import WidgetLoader from './WidgetLoader.server'
 
-import {Suspense} from 'react';
 
-import Note from './Note.server';
-import NoteList from './NoteList.server';
-import EditButton from './EditButton.client';
-import SearchField from './SearchField.client';
-import NoteSkeleton from './NoteSkeleton';
-import NoteListSkeleton from './NoteListSkeleton';
-
-export default function App({selectedId, isEditing, searchText}) {
-  return (
-    <div className="main">
-      <section className="col sidebar">
-        <section className="sidebar-header">
-          <img
-            className="logo"
-            src="logo.svg"
-            width="22px"
-            height="20px"
-            alt=""
-            role="presentation"
-          />
-          <strong>React Notes</strong>
-        </section>
-        <section className="sidebar-menu" role="menubar">
-          <SearchField />
-          <EditButton noteId={null}>New</EditButton>
-        </section>
-        <nav>
-          <Suspense fallback={<NoteListSkeleton />}>
-            <NoteList searchText={searchText} />
-          </Suspense>
-        </nav>
-      </section>
-      <section key={selectedId} className="col note-viewer">
-        <Suspense fallback={<NoteSkeleton isEditing={isEditing} />}>
-          <Note selectedId={selectedId} isEditing={isEditing} />
-        </Suspense>
-      </section>
-    </div>
-  );
+function App(props) {
+    const data = fetch(`http://localhost:4000/api/${props.page}/${props.pageNo}`).json()
+    let pagePriceDetails
+    if(data['priceData'])
+      pagePriceDetails=data["priceData"]
+    const slots=data['slots']
+    const hasMorePages=data['hasMorePages']
+    return(
+      <>
+        <Header />
+        <Testing/>
+        {/* <Suspense fallback={
+          <div style={{marginTop:'40vh'}}>
+            <Loader isBottom={false}/>
+          </div>
+        }> */}
+        {/* <Suspense fallback={<div style={{backgroundColor:'red', height:'100vh', width:'100vw'}}>Hello</div>}>
+          <WidgetLoader page={props.page} pagePriceDetails={pagePriceDetails} slots={slots} hasMorePages={hasMorePages}/>
+        </Suspense> */}
+        {/* <h1>Hello</h1> */}
+      </>
+    )
 }
+
+export default App
